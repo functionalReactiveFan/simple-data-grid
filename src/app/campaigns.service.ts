@@ -3,12 +3,12 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable()
-export class DataService {
+export class CampaignsService {
   private dataUrl = 'assets/data.json';
 
   constructor(private http: HttpClient) {}
 
-  getData (): Observable<any[]> {
+  getCampaigns (): Observable<any[]> {
     return this.http.get<any[]>(this.dataUrl);
   }
 }

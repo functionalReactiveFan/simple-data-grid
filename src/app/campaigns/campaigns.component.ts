@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { DataService } from '../data.service';
+import { CampaignsService } from '../campaigns.service';
 import { MatPaginator, MatTableDataSource } from '@angular/material';
 
 @Component({
@@ -13,7 +13,7 @@ export class CampaignsComponent implements OnInit {
   dataSource = new MatTableDataSource<any>();
   displayedColumns: string[] = ['edit', 'id', 'campaignid', 'userid', 'camp_cpc', 'date', 'frienddomainid', 'freeclick', 'network', 'PlistaProduct'];
 
-  constructor(private dataService: DataService) { }
+  constructor(private campaignsService: CampaignsService) { }
 
   ngOnInit() {
     this.getCampaigns();
@@ -21,7 +21,7 @@ export class CampaignsComponent implements OnInit {
   }
 
   getCampaigns(): void {
-    this.dataService.getData()
+    this.campaignsService.getCampaigns()
       .subscribe(campaigns => this.dataSource.data = campaigns);
   }
 

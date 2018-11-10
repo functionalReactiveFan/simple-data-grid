@@ -8,7 +8,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule, MatPaginatorModule, MatTableModule } from '@angular/material';
 import { CampaignsComponent } from './campaigns/campaigns.component';
 import { AppRoutingModule } from './app-routing.module';
-import { DataService } from './data.service';
+import { CampaignsService } from './campaigns.service';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CampaignEditComponent } from './campaign-edit/campaign-edit.component';
@@ -31,7 +31,7 @@ import { CampaignEditComponent } from './campaign-edit/campaign-edit.component';
   ],
   providers: [
     { provide: LOCALE_ID, useValue: 'de-DE' },
-    DataService
+    CampaignsService
   ],
   bootstrap: [AppComponent]
 })
