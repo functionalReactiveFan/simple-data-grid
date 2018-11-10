@@ -11,7 +11,7 @@ export class CampaignsComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   dataSource = new MatTableDataSource<any>();
-  displayedColumns: string[] = ['id', 'campaignid', 'userid', 'camp_cpc', 'date', 'frienddomainid', 'freeclick', 'network', 'PlistaProduct'];
+  displayedColumns: string[] = ['edit', 'id', 'campaignid', 'userid', 'camp_cpc', 'date', 'frienddomainid', 'freeclick', 'network', 'PlistaProduct'];
 
   constructor(private dataService: DataService) { }
 

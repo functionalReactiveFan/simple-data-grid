@@ -5,17 +5,19 @@ import localeDe from '@angular/common/locales/de';
 
 import { AppComponent } from './app.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MatPaginatorModule, MatTableModule } from '@angular/material';
+import { MatButtonModule, MatPaginatorModule, MatTableModule } from '@angular/material';
 import { CampaignsComponent } from './campaigns/campaigns.component';
 import { AppRoutingModule } from './app-routing.module';
 import { DataService } from './data.service';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CampaignEditComponent } from './campaign-edit/campaign-edit.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    CampaignsComponent
+    CampaignsComponent,
+    CampaignEditComponent
   ],
   imports: [
     BrowserModule,
@@ -24,7 +26,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     AppRoutingModule,
     ReactiveFormsModule,
     MatTableModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatButtonModule
   ],
   providers: [
     { provide: LOCALE_ID, useValue: 'de-DE' },
