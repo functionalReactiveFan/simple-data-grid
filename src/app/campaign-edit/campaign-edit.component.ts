@@ -12,6 +12,7 @@ export class CampaignEditComponent implements OnInit {
   campaignData: any;
   networks = ['a', 'b', 'c'];
   products = ['Product 1', 'Product 2', 'Product n'];
+  maxDate = new Date();
   form: FormGroup;
 
   constructor(private route: ActivatedRoute,
@@ -36,5 +37,20 @@ export class CampaignEditComponent implements OnInit {
 
   onSubmit() {
 
+  }
+
+  public getMaxTime() {
+    const d = new Date();
+    const h = this.addZero(d.getHours());
+    const m = this.addZero(d.getMinutes());
+
+    return h + ':' + m;
+  }
+
+  private addZero(i) {
+    if (i < 10) {
+      i = '0' + i;
+    }
+    return i;
   }
 }

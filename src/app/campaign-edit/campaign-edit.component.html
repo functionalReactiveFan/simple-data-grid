@@ -6,15 +6,29 @@
     <div><span>id: </span>{{campaignData.a}}</div>
     <form [formGroup]="form" (ngSubmit)="onSubmit()">
       <mat-form-field>
-        <input matInput id="camp_cpc" formControlName="camp_cpc" placeholder="camp_cpc"/>
+        <mat-label>camp_cpc</mat-label>
+        <input matInput id="camp_cpc" formControlName="camp_cpc"/>
       </mat-form-field>
       <br>
       <mat-form-field>
-        <input matInput id="date" formControlName="date" placeholder="date"/>
+        <mat-label>date</mat-label>
+        <input matInput
+               id="date"
+               [max]="maxDate"
+               [matDatepicker]="picker"
+               formControlName="date"/>
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker startView="month"></mat-datepicker>
       </mat-form-field>
       <br>
       <mat-form-field>
-        <input matInput id="time" formControlName="time" placeholder="time"/>
+        <!--@TODO - time cannot be in the future. Will have to create a custom validator for this since the max property doesn't work-->
+        <mat-label>time</mat-label>
+        <input matInput
+               id="time"
+               type="time"
+               [max]="getMaxTime()"
+               formControlName="time"/>
       </mat-form-field>
       <br>
         <mat-checkbox id="freeclick" formControlName="freeclick">Freeclick</mat-checkbox>
@@ -24,7 +38,8 @@
       </mat-radio-group>
       <br>
       <mat-form-field>
-        <mat-select id="PlistaProduct" formControlName="PlistaProduct" placeholder="PlistaProduct">
+        <mat-label>PlistaProduct</mat-label>
+        <mat-select id="PlistaProduct" formControlName="PlistaProduct">
           <mat-option *ngFor="let product of products" [value]="product">
             {{product}}
           </mat-option>

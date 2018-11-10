@@ -9,8 +9,11 @@ import {
   MatButtonModule,
   MatCardModule,
   MatCheckboxModule,
+  MatDatepickerModule,
   MatFormFieldModule,
-  MatInputModule, MatOptionModule,
+  MatInputModule,
+  MatNativeDateModule,
+  MatOptionModule,
   MatPaginatorModule,
   MatRadioModule,
   MatSelectModule,
@@ -44,7 +47,9 @@ import { CampaignEditComponent } from './campaign-edit/campaign-edit.component';
     MatCheckboxModule,
     MatRadioModule,
     MatSelectModule,
-    MatOptionModule
+    MatOptionModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
   providers: [
     { provide: LOCALE_ID, useValue: 'de-DE' },
