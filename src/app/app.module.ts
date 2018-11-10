@@ -5,7 +5,17 @@ import localeDe from '@angular/common/locales/de';
 
 import { AppComponent } from './app.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MatButtonModule, MatCardModule, MatFormFieldModule, MatInputModule, MatPaginatorModule, MatTableModule } from '@angular/material';
+import {
+  MatButtonModule,
+  MatCardModule,
+  MatCheckboxModule,
+  MatFormFieldModule,
+  MatInputModule, MatOptionModule,
+  MatPaginatorModule,
+  MatRadioModule,
+  MatSelectModule,
+  MatTableModule
+} from '@angular/material';
 import { CampaignsComponent } from './campaigns/campaigns.component';
 import { AppRoutingModule } from './app-routing.module';
 import { CampaignsService } from './campaigns.service';
@@ -30,7 +40,11 @@ import { CampaignEditComponent } from './campaign-edit/campaign-edit.component';
     MatButtonModule,
     MatCardModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    MatCheckboxModule,
+    MatRadioModule,
+    MatSelectModule,
+    MatOptionModule
   ],
   providers: [
     { provide: LOCALE_ID, useValue: 'de-DE' },

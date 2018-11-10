@@ -8,23 +8,29 @@
       <mat-form-field>
         <input matInput id="camp_cpc" formControlName="camp_cpc" placeholder="camp_cpc"/>
       </mat-form-field>
-
+      <br>
       <mat-form-field>
         <input matInput id="date" formControlName="date" placeholder="date"/>
       </mat-form-field>
-
+      <br>
       <mat-form-field>
-        <input matInput id="freeclick" formControlName="freeclick" placeholder="freeclick"/>
+        <input matInput id="time" formControlName="time" placeholder="time"/>
       </mat-form-field>
-
+      <br>
+        <mat-checkbox id="freeclick" formControlName="freeclick">Freeclick</mat-checkbox>
+      <br>
+      <mat-radio-group id="networks" formControlName="networks">
+        <mat-radio-button *ngFor="let network of networks" [value]="network">{{network}}</mat-radio-button>
+      </mat-radio-group>
+      <br>
       <mat-form-field>
-        <input matInput id="network" formControlName="network" placeholder="network"/>
+        <mat-select id="PlistaProduct" formControlName="PlistaProduct" placeholder="PlistaProduct">
+          <mat-option *ngFor="let product of products" [value]="product">
+            {{product}}
+          </mat-option>
+        </mat-select>
       </mat-form-field>
-
-      <mat-form-field>
-        <input matInput id="PlistaProduct" formControlName="PlistaProduct" placeholder="PlistaProduct"/>
-      </mat-form-field>
-
+      <br>
       <button mat-raised-button>go back</button>
       <button mat-raised-button>save</button>
     </form>
