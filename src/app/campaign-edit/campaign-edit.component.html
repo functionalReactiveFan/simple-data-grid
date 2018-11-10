@@ -1,3 +1,32 @@
-<p>
-  campaign-edit works!
-</p>
+<div *ngIf="campaignData">
+  <mat-card-title>
+    <h3>Details</h3>
+  </mat-card-title>
+  <mat-card-content>
+    <div><span>id: </span>{{campaignData.a}}</div>
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <mat-form-field>
+        <input matInput id="camp_cpc" formControlName="camp_cpc" placeholder="camp_cpc"/>
+      </mat-form-field>
+
+      <mat-form-field>
+        <input matInput id="date" formControlName="date" placeholder="date"/>
+      </mat-form-field>
+
+      <mat-form-field>
+        <input matInput id="freeclick" formControlName="freeclick" placeholder="freeclick"/>
+      </mat-form-field>
+
+      <mat-form-field>
+        <input matInput id="network" formControlName="network" placeholder="network"/>
+      </mat-form-field>
+
+      <mat-form-field>
+        <input matInput id="PlistaProduct" formControlName="PlistaProduct" placeholder="PlistaProduct"/>
+      </mat-form-field>
+
+      <button mat-raised-button>go back</button>
+      <button mat-raised-button>save</button>
+    </form>
+  </mat-card-content>
+</div>
