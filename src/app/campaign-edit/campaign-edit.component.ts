@@ -69,6 +69,10 @@ export class CampaignEditComponent implements OnInit {
     }
   }
 
+  onGoBack() {
+    this.location.back();
+  }
+
   validateDateTime(control: FormControl): {[key: string]: boolean} {
     const dateControl = control.get('date');
     const timeControl = control.get('time');

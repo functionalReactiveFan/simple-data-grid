@@ -20,6 +20,7 @@
           <mat-label>date</mat-label>
           <input matInput
                  id="date"
+                 readonly
                  [max]="maxDate"
                  [matDatepicker]="picker"
                  (dateChange)="dateChanged('change', $event)"
@@ -29,7 +30,6 @@
         </mat-form-field>
         <br>
         <mat-form-field>
-          <!--@TODO - time cannot be in the future. Will have to create a custom validator for this since the max property doesn't work-->
           <mat-label>time</mat-label>
           <input matInput
                  id="time"
@@ -57,8 +57,8 @@
         </mat-select>
       </mat-form-field>
       <br>
-      <button mat-raised-button>go back</button>
-      <button mat-raised-button>save</button>
+      <button mat-raised-button type="button" (click)="onGoBack()">Go back</button>
+      <button mat-raised-button type="submit">Save</button>
     </form>
   </mat-card-content>
 </div>
