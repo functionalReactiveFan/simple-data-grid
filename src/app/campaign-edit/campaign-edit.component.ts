@@ -13,7 +13,7 @@ import {MatDatepickerInputEvent} from '@angular/material';
 export class CampaignEditComponent implements OnInit {
   campaignData: any;
   network = ['a', 'b', 'c'];
-  products = ['Product 1', 'Product 2', 'Product n'];
+  products = ['Product 1', 'Product 2', 'Product 3', 'Product 4', 'Product 5', 'Product 6', 'Product 7', 'Product 8', 'Product 9'];
   maxDate = new Date();
   form: FormGroup;
 
