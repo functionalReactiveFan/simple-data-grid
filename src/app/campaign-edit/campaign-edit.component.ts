@@ -4,6 +4,7 @@ import { Location } from '@angular/common';
 import { CampaignsService } from '../campaigns.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDatepickerInputEvent } from '@angular/material';
+import { Campaign } from '../campaign';
 
 @Component({
   selector: 'app-campaign-edit',
@@ -11,7 +12,7 @@ import { MatDatepickerInputEvent } from '@angular/material';
   styleUrls: ['./campaign-edit.component.scss']
 })
 export class CampaignEditComponent implements OnInit {
-  campaignData: any;
+  campaignData: Campaign;
   network = ['a', 'b', 'c'];
   products = ['Product 1', 'Product 2', 'Product 3', 'Product 4', 'Product 5', 'Product 6', 'Product 7', 'Product 8', 'Product 9'];
   maxDate = new Date();
