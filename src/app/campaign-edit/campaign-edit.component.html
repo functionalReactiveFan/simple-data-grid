@@ -7,29 +7,39 @@
     <form [formGroup]="form" (ngSubmit)="onSubmit()">
       <mat-form-field>
         <mat-label>camp_cpc</mat-label>
-        <input matInput id="camp_cpc" formControlName="camp_cpc"/>
+        <input matInput
+               id="camp_cpc"
+               type="number"
+               min="0"
+               step="any"
+               formControlName="camp_cpc"/>
       </mat-form-field>
       <br>
-      <mat-form-field>
-        <mat-label>date</mat-label>
-        <input matInput
-               id="date"
-               [max]="maxDate"
-               [matDatepicker]="picker"
-               formControlName="date"/>
-        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-        <mat-datepicker #picker startView="month"></mat-datepicker>
-      </mat-form-field>
-      <br>
-      <mat-form-field>
-        <!--@TODO - time cannot be in the future. Will have to create a custom validator for this since the max property doesn't work-->
-        <mat-label>time</mat-label>
-        <input matInput
-               id="time"
-               type="time"
-               [max]="getMaxTime()"
-               formControlName="time"/>
-      </mat-form-field>
+      <div formGroupName="datetime">
+        <mat-form-field>
+          <mat-label>date</mat-label>
+          <input matInput
+                 id="date"
+                 [max]="maxDate"
+                 [matDatepicker]="picker"
+                 formControlName="date"/>
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker startView="month"></mat-datepicker>
+        </mat-form-field>
+        <br>
+        <mat-form-field>
+          <!--@TODO - time cannot be in the future. Will have to create a custom validator for this since the max property doesn't work-->
+          <mat-label>time</mat-label>
+          <input matInput
+                 id="time"
+                 type="time"
+                 formControlName="time"/>
+        </mat-form-field>
+      </div>
+      <div *ngIf="form.get('datetime').invalid && form.get('datetime').errors">
+        <span *ngIf="form.get('datetime').errors['dateTimeInvalid']">The time cannot be in the future</span>
+        <span *ngIf="form.get('datetime').errors['required']">This field is required</span>
+      </div>
       <br>
         <mat-checkbox id="freeclick" formControlName="freeclick">Freeclick</mat-checkbox>
       <br>
