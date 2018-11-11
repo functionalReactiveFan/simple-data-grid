@@ -22,9 +22,11 @@ import {
 import { CampaignsComponent } from './campaigns/campaigns.component';
 import { AppRoutingModule } from './app-routing.module';
 import { CampaignsService } from './campaigns.service';
-import { HttpClientModule } from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CampaignEditComponent } from './campaign-edit/campaign-edit.component';
+import {RequestCacheService} from './request-cache.service';
+import {CachingInterceptorService} from './caching-interceptor.service';
 
 @NgModule({
   declarations: [
@@ -53,6 +55,8 @@ import { CampaignEditComponent } from './campaign-edit/campaign-edit.component';
   ],
   providers: [
     { provide: LOCALE_ID, useValue: 'de-DE' },
+    RequestCacheService,
+    { provide: HTTP_INTERCEPTORS, useClass: CachingInterceptorService, multi: true },
     CampaignsService
   ],
   bootstrap: [AppComponent]

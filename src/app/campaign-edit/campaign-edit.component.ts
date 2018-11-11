@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { CampaignsService } from '../campaigns.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import {MatDatepickerInputEvent} from '@angular/material';
 
 @Component({
   selector: 'app-campaign-edit',
@@ -11,7 +12,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 })
 export class CampaignEditComponent implements OnInit {
   campaignData: any;
-  networks = ['a', 'b', 'c'];
+  network = ['a', 'b', 'c'];
   products = ['Product 1', 'Product 2', 'Product n'];
   maxDate = new Date();
   form: FormGroup;
@@ -23,26 +24,48 @@ export class CampaignEditComponent implements OnInit {
   ngOnInit() {
     const id = +this.route.snapshot.paramMap.get('id');
     this.getCampaignById(id);
-    this.form = new FormGroup({
-      'camp_cpc': new FormControl(null, Validators.required),
-      'datetime': new FormGroup({
-        'date': new FormControl(null, Validators.required),
-        'time': new FormControl(null, Validators.required),
-      },
-        [this.validateDateTime]),
-      'freeclick': new FormControl(false),
-      'networks': new FormControl('a'),
-      'PlistaProduct': new FormControl(null, Validators.required)
-    });
   }
 
   getCampaignById(id: number) {
-    this.campaignsService.getCampaignsById(id).subscribe(campaign => this.campaignData = campaign);
+    this.campaignsService.getCampaignsById(id).subscribe(campaign => {
+      this.campaignData = campaign;
+      const d = new Date(this.campaignData.date);
+      const date = d.getFullYear() + '-' + this.addZero(d.getMonth() + 1) + '-' + this.addZero(d.getDate());
+      const time = this.addZero(d.getHours()) + ':' + this.addZero(d.getMinutes());
+      this.form = new FormGroup({
+        'camp_cpc': new FormControl(this.campaignData.camp_cpc, Validators.required),
+        'datetime': new FormGroup({
+            'date': new FormControl(date, Validators.required),
+            'time': new FormControl(time, Validators.required),
+          },
+          [this.validateDateTime]),
+        'freeclick': new FormControl(this.campaignData.freeclick),
+        'network': new FormControl(this.campaignData.network),
+        'PlistaProduct': new FormControl(this.campaignData.PlistaProduct, Validators.required)
+      });
+    });
+  }
+
+  dateChanged(type: string, event: MatDatepickerInputEvent<Date>) {
+    const d = new Date(event.value);
+    const date = d.getFullYear() + '-' + this.addZero(d.getMonth() + 1) + '-' + this.addZero(d.getDate());
+    this.form.patchValue({
+      'datetime': {
+        'date': date
+      }
+    });
   }
 
   onSubmit() {
     if (!this.form.invalid) {
-      this.location.back();
+     const hours = this.form.value.datetime.time.split(':')[0];
+     const minutes = this.form.value.datetime.time.split(':')[1];
+     const timeString = hours + ':' + minutes + ':00';
+     const dateString = this.form.value.datetime.date + 'T';
+     this.campaignData.date = dateString + timeString;
+     delete this.form.value.datetime;
+     this.campaignData = Object.assign(this.campaignData, this.form.value);
+     this.location.back();
     }
   }
 
@@ -71,5 +94,12 @@ export class CampaignEditComponent implements OnInit {
       }
 
     return null;
+  }
+
+  private addZero(i) {
+    if (i < 10) {
+      i = '0' + i;
+    }
+    return i;
   }
 }

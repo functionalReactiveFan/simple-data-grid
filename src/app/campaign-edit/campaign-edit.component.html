@@ -22,6 +22,7 @@
                  id="date"
                  [max]="maxDate"
                  [matDatepicker]="picker"
+                 (dateChange)="dateChanged('change', $event)"
                  formControlName="date"/>
           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
           <mat-datepicker #picker startView="month"></mat-datepicker>
@@ -43,8 +44,8 @@
       <br>
         <mat-checkbox id="freeclick" formControlName="freeclick">Freeclick</mat-checkbox>
       <br>
-      <mat-radio-group id="networks" formControlName="networks">
-        <mat-radio-button *ngFor="let network of networks" [value]="network">{{network}}</mat-radio-button>
+      <mat-radio-group id="network" formControlName="network">
+        <mat-radio-button *ngFor="let n of network" [value]="n">{{n}}</mat-radio-button>
       </mat-radio-group>
       <br>
       <mat-form-field>

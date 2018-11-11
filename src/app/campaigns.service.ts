@@ -18,4 +18,9 @@ export class CampaignsService {
       map(campaigns => campaigns.find(campaign => campaign.a === id))
     );
   }
+
+  updateCampaignById(id: number, data: any) {
+    console.log('do an update');
+    console.log(data);
+  }
 }
