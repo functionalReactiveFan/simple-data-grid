@@ -7,6 +7,7 @@ const routes: Routes = [
   { path: '', redirectTo: '/campaigns', pathMatch: 'full' },
   { path: 'campaigns', component: CampaignsComponent },
   { path: 'campaign-edit/:id', component: CampaignEditComponent },
+  { path: '**', redirectTo: '/campaigns'}
 ];
 
 @NgModule({

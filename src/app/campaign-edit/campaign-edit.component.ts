@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { CampaignsService } from '../campaigns.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import {MatDatepickerInputEvent} from '@angular/material';
+import { MatDatepickerInputEvent } from '@angular/material';
 
 @Component({
   selector: 'app-campaign-edit',
@@ -26,53 +26,52 @@ export class CampaignEditComponent implements OnInit {
     this.getCampaignById(id);
   }
 
-  getCampaignById(id: number) {
+  /**
+   * Make a request to get the campaign data. Set form when done.
+   */
+  getCampaignById(id: number): void {
     this.campaignsService.getCampaignsById(id).subscribe(campaign => {
       this.campaignData = campaign;
-      const d = new Date(this.campaignData.date);
-      const date = d.getFullYear() + '-' + this.addZero(d.getMonth() + 1) + '-' + this.addZero(d.getDate());
-      const time = this.addZero(d.getHours()) + ':' + this.addZero(d.getMinutes());
-      this.form = new FormGroup({
-        'camp_cpc': new FormControl(this.campaignData.camp_cpc, Validators.required),
-        'datetime': new FormGroup({
-            'date': new FormControl(date, Validators.required),
-            'time': new FormControl(time, Validators.required),
-          },
-          [this.validateDateTime]),
-        'freeclick': new FormControl(this.campaignData.freeclick),
-        'network': new FormControl(this.campaignData.network),
-        'PlistaProduct': new FormControl(this.campaignData.PlistaProduct, Validators.required)
-      });
+      this.setupForm();
     });
   }
 
-  dateChanged(type: string, event: MatDatepickerInputEvent<Date>) {
-    const d = new Date(event.value);
-    const date = d.getFullYear() + '-' + this.addZero(d.getMonth() + 1) + '-' + this.addZero(d.getDate());
+  /**
+   * Triggered when the user finished adding the date
+   */
+  dateChanged(type: string, event: MatDatepickerInputEvent<Date>): void {
     this.form.patchValue({
       'datetime': {
-        'date': date
+        'date': this.getDate(new Date(event.value))
       }
     });
   }
 
-  onSubmit() {
+  /**
+   * Format date and time and then update CampaignData based on form values passed.
+   */
+  onSubmit(): void {
     if (!this.form.invalid) {
      const hours = this.form.value.datetime.time.split(':')[0];
      const minutes = this.form.value.datetime.time.split(':')[1];
      const timeString = hours + ':' + minutes + ':00';
      const dateString = this.form.value.datetime.date + 'T';
+
      this.campaignData.date = dateString + timeString;
      delete this.form.value.datetime;
+
      this.campaignData = Object.assign(this.campaignData, this.form.value);
      this.location.back();
     }
   }
 
-  onGoBack() {
+  onGoBack(): void {
     this.location.back();
   }
 
+  /**
+   * Custom validator to check that a period in the future cannot be selected
+   */
   validateDateTime(control: FormControl): {[key: string]: boolean} {
     const dateControl = control.get('date');
     const timeControl = control.get('time');
@@ -100,10 +99,36 @@ export class CampaignEditComponent implements OnInit {
     return null;
   }
 
-  private addZero(i) {
+  private setupForm(): void {
+    const d = new Date(this.campaignData.date);
+    this.form = new FormGroup({
+      'camp_cpc': new FormControl(this.campaignData.camp_cpc, Validators.required),
+      'datetime': new FormGroup({
+          'date': new FormControl(this.getDate(d), Validators.required),
+          'time': new FormControl(this.getTime(d), Validators.required),
+        },
+        [this.validateDateTime]),
+      'freeclick': new FormControl(this.campaignData.freeclick),
+      'network': new FormControl(this.campaignData.network),
+      'PlistaProduct': new FormControl(this.campaignData.PlistaProduct, Validators.required)
+    });
+  }
+
+  /**
+   * prepend a zero to passed param if below 10
+   */
+  private prependZero(i): string {
     if (i < 10) {
       i = '0' + i;
     }
     return i;
+  }
+
+  private getDate(d: Date): string {
+    return d.getFullYear() + '-' + this.prependZero(d.getMonth() + 1) + '-' + this.prependZero(d.getDate());
+  }
+
+  private getTime(d: Date): string {
+    return this.prependZero(d.getHours()) + ':' + this.prependZero(d.getMinutes());
   }
 }

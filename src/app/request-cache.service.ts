@@ -2,13 +2,12 @@ import { Injectable } from '@angular/core';
 import { HttpRequest, HttpResponse } from '@angular/common/http';
 
 const maxAge = 30000;
+
 @Injectable()
 export class RequestCacheService  {
-
   cache = new Map();
 
   get(req: HttpRequest<any>): HttpResponse<any> | undefined {
-    console.log('get cache');
     const url = req.urlWithParams;
     const cached = this.cache.get(url);
 
