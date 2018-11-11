@@ -11,6 +11,7 @@ import {
   MatCheckboxModule,
   MatDatepickerModule,
   MatFormFieldModule,
+  MatGridListModule,
   MatInputModule,
   MatNativeDateModule,
   MatOptionModule,
@@ -51,7 +52,8 @@ import {CachingInterceptorService} from './caching-interceptor.service';
     MatSelectModule,
     MatOptionModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatGridListModule
   ],
   providers: [
     { provide: LOCALE_ID, useValue: 'de-DE' },

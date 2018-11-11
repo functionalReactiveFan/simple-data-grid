@@ -1,22 +1,20 @@
 <div *ngIf="campaignData">
-  <mat-card-title>
-    <h3>Details</h3>
-  </mat-card-title>
-  <mat-card-content>
-    <div><span>id: </span>{{campaignData.a}}</div>
+  <mat-card-title>Details</mat-card-title>
+  <mat-card-content class="groups">
     <form [formGroup]="form" (ngSubmit)="onSubmit()">
-      <mat-form-field>
-        <mat-label>camp_cpc</mat-label>
-        <input matInput
-               id="camp_cpc"
-               type="number"
-               min="0"
-               step="any"
-               formControlName="camp_cpc"/>
-      </mat-form-field>
-      <br>
-      <div formGroupName="datetime">
+      <div class="group">
         <mat-form-field>
+          <mat-label>camp_cpc</mat-label>
+          <input matInput
+                 id="camp_cpc"
+                 type="number"
+                 min="0"
+                 step="any"
+                 formControlName="camp_cpc"/>
+        </mat-form-field>
+      </div>
+      <div formGroupName="datetime" class="group">
+        <mat-form-field class="item">
           <mat-label>date</mat-label>
           <input matInput
                  id="date"
@@ -28,8 +26,7 @@
           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
           <mat-datepicker #picker startView="month"></mat-datepicker>
         </mat-form-field>
-        <br>
-        <mat-form-field>
+        <mat-form-field class="item">
           <mat-label>time</mat-label>
           <input matInput
                  id="time"
@@ -37,28 +34,33 @@
                  formControlName="time"/>
         </mat-form-field>
       </div>
-      <div *ngIf="form.get('datetime').invalid && form.get('datetime').errors">
+      <div *ngIf="form.get('datetime').invalid && form.get('datetime').errors" class="group error">
         <span *ngIf="form.get('datetime').errors['dateTimeInvalid']">The time cannot be in the future</span>
         <span *ngIf="form.get('datetime').errors['required']">This field is required</span>
       </div>
-      <br>
+      <div class="group">
         <mat-checkbox id="freeclick" formControlName="freeclick">Freeclick</mat-checkbox>
-      <br>
-      <mat-radio-group id="network" formControlName="network">
-        <mat-radio-button *ngFor="let n of network" [value]="n">{{n}}</mat-radio-button>
-      </mat-radio-group>
-      <br>
-      <mat-form-field>
-        <mat-label>PlistaProduct</mat-label>
-        <mat-select id="PlistaProduct" formControlName="PlistaProduct">
-          <mat-option *ngFor="let product of products" [value]="product">
-            {{product}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-      <br>
-      <button mat-raised-button type="button" (click)="onGoBack()">Go back</button>
-      <button mat-raised-button type="submit">Save</button>
+      </div>
+      <div class="group">
+        <mat-label>Network</mat-label>
+        <mat-radio-group id="network" formControlName="network">
+          <mat-radio-button *ngFor="let n of network" [value]="n">{{n}}</mat-radio-button>
+        </mat-radio-group>
+      </div>
+      <div class="group">
+        <mat-form-field>
+          <mat-label>PlistaProduct</mat-label>
+          <mat-select id="PlistaProduct" formControlName="PlistaProduct">
+            <mat-option *ngFor="let product of products" [value]="product">
+              {{product}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="group">
+        <button mat-raised-button type="button" (click)="onGoBack()">Go back</button>
+        <button mat-raised-button type="submit">Save</button>
+      </div>
     </form>
   </mat-card-content>
 </div>
